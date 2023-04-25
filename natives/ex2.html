@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex2</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        max-width: 56.25rem;
+      }
+
+      .content {
+        padding-left: 10px;
+        padding-top: 10px;
+        font-family: sans-serif;
+        font-weight: 600;
+      }
+      .grid-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+      }
+      .card {
+        width: 17.5rem;
+        height: 16.875rem;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="container">
+        <h1 class="content">Conteúdo da Web</h1>
+        <div class="grid-cards">
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

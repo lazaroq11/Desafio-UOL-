@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex1</title>
+
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      img {
+        position: relative;
+        width: 15.96rem;
+        height: 9.375rem;
+      }
+      .container_card {
+        width: 15.75rem;
+        padding-left: 0.625rem;
+        padding-top: 0.625rem;
+      }
+      p {
+        position: absolute;
+        background-color: #5c9cd4;
+        top: 6.875rem;
+        left: 1.1rem;
+        font-size: 0.875rem;
+        z-index: 9999;
+        color: #ffffff;
+        font-family: sans-serif;
+        font-weight: 600;
+        border: 0.063rem solid #5c9cd4;
+        border-radius: 0.313rem;
+        padding: 4px 5px;
+      }
+
+      h2 {
+        width: 14.75rem;
+        word-wrap: break-word;
+        font-size: 1.05rem;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="container"></div>
+    </main>
+    <script>
+      const api = 'teste.json';
+      fetch(api)
+        .then(response => response.json())
+        .then(data => {
+          const randomIndx = Math.floor(Math.random() * data.natives.length);
+          const randomObject = data.natives[randomIndx];
+          const category = document.createElement('p');
+          category.textContent = randomObject.category;
+          const img = document.createElement('img');
+          img.src = randomObject.urlImage;
+          const div = document.createElement('div');
+          div.classList.add('container_card');
+          const title = document.createElement('h2');
+          title.textContent = randomObject.title;
+          div.appendChild(img);
+          div.appendChild(title);
+          div.appendChild(category);
+          const ContainerDiv = document.getElementById('container');
+          ContainerDiv.appendChild(div);
+          window.parent.postMessage('card', '*');
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>

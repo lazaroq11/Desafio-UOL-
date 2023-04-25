@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex3</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        max-width: 56.25rem;
+      }
+
+      .content {
+        padding-left: 10px;
+        padding-top: 10px;
+        font-family: sans-serif;
+        font-weight: 600;
+      }
+      .grid-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+      }
+      .card {
+        width: 17.5rem;
+        height: 16.875rem;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="container">
+        <h1 class="content">Conteúdo da Web</h1>
+        <div class="grid-cards">
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+          <iframe src="ex1.html" class="card"></iframe>
+        </div>
+      </section>
+    </main>
+    <script>
+      function RandomColor() {
+        let hexColor = '#';
+        for (let i = 0; i < 6; i++) {
+          hexColor += Math.floor(Math.random() * 16).toString(16);
+        }
+        return hexColor;
+      }
+
+      window.addEventListener('message', () => {
+        if (event.data === 'card') {
+          const card = event.source.frameElement;
+          const category = card.contentDocument.querySelector('p');
+          const container_card = card.contentDocument.querySelectorAll('.container_card');
+          category.style.backgroundColor = RandomColor();
+          const imgs = card.contentDocument.querySelectorAll('img');
+          const imgLike = card.contentDocument.querySelector('img');
+          imgLike.style.cursor = 'pointer';
+          imgLike.addEventListener('click', () => {
+            const like = document.createElement('div');
+            like.innerHTML = '❤️';
+            like.style.opacity = 1;
+            like.style.position = 'absolute';
+            like.style.top = `${imgLike.offsetTop + imgLike.offsetHeight / 2 - 10}px`;
+            like.style.left = `${imgLike.offsetLeft + imgLike.offsetWidth / 2 - 10}px`;
+            card.contentDocument.body.appendChild(like);
+            let opacity = 1;
+            const interval = setInterval(() => {
+              opacity -= 0.05;
+              like.style.opacity = opacity;
+              if (opacity <= 0) {
+                clearInterval(interval);
+                card.contentDocument.body.removeChild(like);
+              }
+            }, 30);
+            setTimeout(function () {
+              like.style.opacity = 0;
+            }, 5000);
+          });
+          imgs.forEach(img => {
+            setInterval(() => {
+              img.style.transition = 'border-color 1s ease';
+              img.style.animation = 'pulse-border 1s ease-in-out infinite';
+              img.style.border = `4px double ${RandomColor()}`;
+              img.style.borderWidth = '6px  5px ';
+              img.style.borderRadius = '5px';
+            }, 1000);
+          });
+          container_card.forEach(cards => {
+            cards.addEventListener('mouseover', () => {
+              cards.setAttribute('title', 'Clique aqui');
+              cards.style.transform = 'scale(1.1)';
+              cards.style.transition = 'transform 0.3s ease-in-out';
+            });
+
+            cards.addEventListener('mouseout', () => {
+              cards.style.transform = 'scale(1)';
+              cards.style.transition = 'transform 0.3s ease-in-out';
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
