@@ -5,7 +5,7 @@ function FilterlistWine() {
     const data = Number(element.getAttribute('data-product-sku'));
     return data && data % 3 === 0;
   });
-  console.log(elementsFilter);
+  
 
   elementsFilter.forEach(element => {
     console.log(element);
